@@ -7,12 +7,13 @@ else
     target=$PWD
 fi
 
-if [[ -n $1 ]]; then
-    doi=$argv
-    wget --content-disposition --progress=bar --random-wait -nc -c -E \
-    http://libgen.biz/scimag/get.php\?doi\=$doi -P $target
+if [[ -n $argv ]]; then
+    for doi in $argv; do
+        wget --content-disposition --progress=bar --random-wait -c -E -N \
+        http://libgen.biz/scimag/get.php\?doi\=$doi -P $target
+    done
 else
-    print "Usage: paper <doi>"
-    print "Written by: Vivek Rai (@vivekiitkgp)"
+    print "Usage: paper [doi]...\n"
+    print "Report issues and features to @vivekiitkgp <vivekrai.iitkgp@gmail.com>."
     exit 1
 fi
